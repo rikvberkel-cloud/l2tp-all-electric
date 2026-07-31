@@ -162,14 +162,22 @@ img { max-width: 100%; display: block; }
   }
   .site-nav__links {
     margin: 0 auto;
-    gap: 1.1rem;
+    gap: .95rem;
   }
   .site-nav__link {
-    font-size: .9rem;
+    font-size: .85rem;
   }
   .site-nav__cta {
     margin-left: 0;
+    padding: .45rem .9rem;
   }
+}
+
+/* Extra smalle telefoons: nav nog iets compacter */
+@media (max-width: 380px) {
+  .site-nav__links { gap: .7rem; }
+  .site-nav__link { font-size: .8rem; }
+  .site-nav__cta { padding: .4rem .7rem; font-size: .78rem; }
 }
 
 /* ============================================
@@ -879,6 +887,108 @@ img { max-width: 100%; display: block; }
   padding: 0 0 1.1rem;
   color: var(--text-muted);
   line-height: 1.7;
+}
+
+/* ============================================
+   NIEUWSBRIEF
+   ============================================ */
+.newsletter {
+  max-width: 620px;
+}
+
+.newsletter__pitch {
+  font-size: 1.05rem;
+  margin-bottom: 1.25rem;
+}
+
+.newsletter__what {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  margin-bottom: 1.75rem;
+}
+
+.newsletter__what li {
+  position: relative;
+  padding-left: 1.5rem;
+  color: var(--text-muted);
+}
+
+.newsletter__what li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: .65em;
+  width: 8px;
+  height: 8px;
+  border: 2px solid var(--neon-cyan);
+  box-shadow: var(--glow-cyan);
+}
+
+/* MailerLite embed krijgt lucht; de vormgeving zelf regel je in MailerLite */
+.ml-embedded {
+  margin: 0 0 .75rem;
+}
+
+.newsletter__note {
+  font-size: .85rem;
+  color: var(--text-muted);
+}
+
+/* ---- ARCHIEF ---- */
+.newsletter__archive {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, .08);
+}
+
+.newsletter__archive-heading {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--neon-cyan);
+  margin-bottom: 1.25rem;
+}
+
+.archive-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.archive-item {
+  padding: 1.1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.archive-item:first-child {
+  border-top: 1px solid rgba(255, 255, 255, .08);
+}
+
+.archive-item__meta {
+  display: block;
+  font-size: .78rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: .2rem;
+}
+
+.archive-item__title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  transition: color .2s ease, text-shadow .2s ease;
+}
+
+.archive-item__title:hover {
+  color: var(--neon-yellow);
+  text-shadow: var(--glow-yellow);
+}
+
+.archive-item__teaser {
+  color: var(--text-muted);
+  font-size: .92rem;
+  margin-top: .2rem;
 }
 
 /* ============================================
