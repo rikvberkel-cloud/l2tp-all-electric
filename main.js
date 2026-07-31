@@ -6,85 +6,7 @@
   'use strict';
 
   /* ------------------------------------------
-     1. MAILTO LINK — automatisch aan/uit
-     ------------------------------------------ */
-  var emailEl = document.getElementById('emailAddress');
-  var linkEl = document.getElementById('emailLink');
-
-  // Het zichtbare adres (boekingen@daddy.nl) is een vanity-adres.
-  // De mail wordt bezorgd op het echte adres uit data-mailto.
-  function mailTarget() {
-    var real = linkEl && linkEl.getAttribute('data-mailto');
-    return (real || emailEl.textContent).trim();
-  }
-
-  function updateMailto() {
-    var addr = mailTarget();
-    var isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(addr);
-
-    if (isValid) {
-      linkEl.href = 'mailto:' + addr;
-      linkEl.removeAttribute('aria-disabled');
-    } else {
-      linkEl.href = '#';
-      linkEl.setAttribute('aria-disabled', 'true');
-    }
-  }
-
-  updateMailto();
-
-  /* ------------------------------------------
-     2. KOPIEER MAILADRES
-     ------------------------------------------ */
-  var copyBtn = document.getElementById('copyBtn');
-
-  copyBtn.addEventListener('click', function () {
-    var addr = mailTarget();
-    navigator.clipboard.writeText(addr).then(function () {
-      copyBtn.textContent = 'Gekopieerd!';
-      copyBtn.classList.add('btn--copied');
-      setTimeout(function () {
-        copyBtn.textContent = 'Kopieer mailadres';
-        copyBtn.classList.remove('btn--copied');
-      }, 2000);
-    }).catch(function () {
-      var ta = document.createElement('textarea');
-      ta.value = addr;
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-      copyBtn.textContent = 'Gekopieerd!';
-      copyBtn.classList.add('btn--copied');
-      setTimeout(function () {
-        copyBtn.textContent = 'Kopieer mailadres';
-        copyBtn.classList.remove('btn--copied');
-      }, 2000);
-    });
-  });
-
-  /* ------------------------------------------
-     2b. CTA CONTACT BUTTON (copies email)
-     ------------------------------------------ */
-  var ctaContact = document.getElementById('ctaContact');
-
-  if (ctaContact) {
-    ctaContact.addEventListener('click', function () {
-      var addr = mailTarget();
-      var isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(addr);
-
-      if (isValid) {
-        window.location.href = 'mailto:' + addr;
-      } else {
-        copyBtn.click();
-      }
-    });
-  }
-
-  /* ------------------------------------------
-     3. CURSOR GLOW (desktop only)
+     1. CURSOR GLOW (desktop only)
      ------------------------------------------ */
   var cursorGlow = document.getElementById('cursorGlow');
   var isTouch = window.matchMedia('(hover: none)').matches;
@@ -118,7 +40,7 @@
   }
 
   /* ------------------------------------------
-     4. PARALLAX SCROLLING
+     2. PARALLAX SCROLLING
      ------------------------------------------ */
   var parallaxSections = document.querySelectorAll('[data-parallax]');
 
@@ -148,7 +70,7 @@
   }
 
   /* ------------------------------------------
-     5. SKILL TREE SCROLL ANIMATION
+     3. SKILL TREE SCROLL ANIMATION
      ------------------------------------------ */
   var skillTree = document.querySelector('.skill-tree--animate');
 
@@ -168,7 +90,7 @@
   }
 
   /* ------------------------------------------
-     6. FADE-IN ON SCROLL (IntersectionObserver)
+     4. FADE-IN ON SCROLL (IntersectionObserver)
      ------------------------------------------ */
   if ('IntersectionObserver' in window) {
     var observer = new IntersectionObserver(function (entries) {
@@ -190,7 +112,7 @@
   }
 
   /* ------------------------------------------
-     7. SCROLL-SPY (actieve nav-link markeren)
+     5. SCROLL-SPY (actieve nav-link markeren)
      ------------------------------------------ */
   var navLinks = document.querySelectorAll('.site-nav__link');
 
