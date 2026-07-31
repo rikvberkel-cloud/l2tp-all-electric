@@ -371,20 +371,16 @@
   <!-- ============================================
        MAILERLITE UNIVERSAL SCRIPT
        ============================================
-       Dit script activeert pop-ups en embedded formulieren
-       die je in het MailerLite-dashboard aanmaakt.
-
-       TODO: vervang ACCOUNT_ID hieronder door je eigen
-       MailerLite account-ID. Die vind je in MailerLite via:
-       Integrations -> MailerLite Universal -> "Use existing website"
-       (het is een getal van ~7 cijfers, bijv. 1234567)
+       Activeert pop-ups en embedded formulieren die je in het
+       MailerLite-dashboard aanmaakt. Weergaveregels van de pop-up
+       stel je daar in, niet hier.
        ============================================ -->
   <script>
     (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
     .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
     n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
     (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
-    ml('account', 'ACCOUNT_ID');
+    ml('account', '2547241');
   </script>
 </body>
 </html>
