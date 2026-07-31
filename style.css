@@ -996,41 +996,15 @@ img { max-width: 100%; display: block; }
    ============================================ */
 .contact-block {
   max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .6rem;
 }
 
-.contact-block p {
-  margin-bottom: .75rem;
-}
-
-.contact-email {
-  font-size: 1.15rem;
-  font-weight: 600;
-}
-
-.email-link {
-  color: var(--neon-cyan);
-  text-shadow: var(--glow-cyan);
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
-.email-link[href="#"] {
-  pointer-events: none;
-  text-decoration: none;
-  cursor: default;
-}
-
-.contact-actions {
-  margin: 1.25rem 0 2rem;
-}
-
-.contact-info {
-  margin-bottom: 1rem;
-  color: var(--text-muted);
-}
-
-.contact-info p {
-  margin-bottom: .5rem;
+/* Knop krijgt extra lucht; de gap regelt de rest */
+.contact-block .btn--primary {
+  margin-top: 1.4rem;
 }
 
 /* ============================================
