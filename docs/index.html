@@ -169,6 +169,12 @@
           </li>
 
           <li class="agenda__row">
+            <span class="agenda__date">07-08</span>
+            <span class="agenda__location"><span class="agenda__flag">🏳️‍🌈</span> Amsterdam</span>
+            <span class="agenda__event">Pride Company Party</span>
+          </li>
+
+          <li class="agenda__row">
             <span class="agenda__date">15-08</span>
             <span class="agenda__location"><span class="agenda__flag">🇳🇱</span> Rotterdam</span>
             <span class="agenda__event">TELLES B-DAY</span>
@@ -318,5 +324,24 @@
   </footer>
 
   <script src="main.js"></script>
+
+  <!-- ============================================
+       MAILERLITE UNIVERSAL SCRIPT
+       ============================================
+       Dit script activeert pop-ups en embedded formulieren
+       die je in het MailerLite-dashboard aanmaakt.
+
+       TODO: vervang ACCOUNT_ID hieronder door je eigen
+       MailerLite account-ID. Die vind je in MailerLite via:
+       Integrations -> MailerLite Universal -> "Use existing website"
+       (het is een getal van ~7 cijfers, bijv. 1234567)
+       ============================================ -->
+  <script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', 'ACCOUNT_ID');
+  </script>
 </body>
 </html>
