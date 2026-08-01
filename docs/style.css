@@ -512,6 +512,16 @@ img { max-width: 100%; display: block; }
   font-weight: 700;
 }
 
+/* Kop met een ondertitel eronder: minder lucht tussen de twee */
+.section__heading--tight {
+  margin-bottom: .5rem;
+}
+
+.section__sub {
+  margin-bottom: 2rem;
+  color: var(--text-muted);
+}
+
 /* ============================================
    ABOUT GRID
    ============================================ */
