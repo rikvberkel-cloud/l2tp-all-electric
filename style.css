@@ -22,6 +22,12 @@
   --glow-cyan: 0 0 8px rgba(0, 229, 255, .6), 0 0 24px rgba(0, 229, 255, .25);
   --glow-green: 0 0 8px rgba(57, 255, 20, .5), 0 0 20px rgba(57, 255, 20, .2);
   --glow-red: 0 0 8px rgba(255, 51, 72, .5), 0 0 20px rgba(255, 51, 72, .2);
+  /* hoogte van de sticky nav — de hero trekt dit van 100dvh af */
+  --nav-h: 3.2rem;
+}
+
+@media (max-width: 640px) {
+  :root { --nav-h: 2.7rem; }
 }
 
 /* ---- RESET ---- */
@@ -322,8 +328,9 @@ img { max-width: 100%; display: block; }
    HERO
    ============================================ */
 .hero {
-  min-height: 100vh;
-  min-height: 100dvh;
+  /* nav-hoogte eraf, anders staat de inhoud onder het optische midden */
+  min-height: calc(100vh - var(--nav-h));
+  min-height: calc(100dvh - var(--nav-h));
   display: flex;
   align-items: center;
   justify-content: center;
