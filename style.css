@@ -361,38 +361,6 @@ img { max-width: 100%; display: block; }
   animation: flicker 3s ease-in-out infinite alternate;
 }
 
-.hero__subtitle {
-  font-size: clamp(1.2rem, 3vw, 2rem);
-  margin-top: .5rem;
-  font-weight: 600;
-}
-
-.hero__tagline {
-  margin-top: 1.5rem;
-  font-size: 1.1rem;
-  color: var(--text-muted);
-  max-width: 420px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.hero__photo {
-  margin: 0 auto 1.5rem;
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 2px solid var(--neon-yellow);
-  box-shadow: var(--glow-yellow);
-}
-
-.hero__photo-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
-}
-
 @keyframes flicker {
   0%, 90%, 100% { opacity: 1; }
   92% { opacity: .85; }
