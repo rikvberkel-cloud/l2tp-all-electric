@@ -355,6 +355,7 @@ img { max-width: 100%; display: block; }
 
 .hero__title {
   font-size: clamp(4rem, 14vw, 10rem);
+  text-wrap: balance;
   font-weight: 700;
   letter-spacing: .04em;
   line-height: 1;
@@ -478,6 +479,9 @@ img { max-width: 100%; display: block; }
   font-size: clamp(1.8rem, 5vw, 2.8rem);
   margin-bottom: 2rem;
   font-weight: 700;
+  letter-spacing: -.015em;
+  line-height: 1.1;
+  text-wrap: balance;
 }
 
 /* Kop met een ondertitel eronder: minder lucht tussen de twee */
@@ -507,7 +511,22 @@ img { max-width: 100%; display: block; }
 }
 
 .about-text p {
+  font-size: 1.05rem;
   margin-bottom: 1rem;
+}
+
+/* Openingsregel van een sectie: groter, dunner, meer lucht */
+.lead {
+  font-size: clamp(1.2rem, 2.6vw, 1.45rem);
+  line-height: 1.45;
+  font-weight: 600;
+  letter-spacing: -.01em;
+  color: #fff;
+  text-wrap: pretty;
+}
+
+.about-text .lead {
+  margin-bottom: 1.25rem;
 }
 
 /* ============================================
@@ -522,12 +541,49 @@ img { max-width: 100%; display: block; }
 
 /* Animation: hidden by default, JS adds --visible */
 .skill-tree--animate .skill-tree__top,
-.skill-tree--animate .skill-tree__connector,
+.skill-tree--animate .skill-tree__connector {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .4s ease, transform .4s ease;
+}
+
+/* De lampjes staan eerst UIT: grijs, geen gloed. */
 .skill-tree--animate .skill-box--green,
 .skill-tree--animate .skill-box--red {
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity .4s ease, transform .4s ease;
+  border-color: rgba(255, 255, 255, .14);
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, .02);
+  box-shadow: none;
+  transition: opacity .3s ease, transform .3s ease,
+              border-color .5s ease, color .5s ease,
+              background .5s ease, box-shadow .5s ease;
+}
+
+/* Pulserende gloed pas laten starten als het lampje aan is */
+.skill-tree--animate .skill-box--red.glow-pulse {
+  animation: none;
+}
+
+/* ...en dan gaan ze aan, in de reeks van de transition-delays hieronder */
+.skill-tree--animate.skill-tree--visible .skill-tree__bottom .skill-box--green {
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+  background: rgba(57, 255, 20, .06);
+  box-shadow: var(--glow-green);
+}
+
+.skill-tree--animate.skill-tree--visible .skill-tree__bottom .skill-box--red {
+  border-color: var(--neon-red);
+  color: var(--neon-red);
+  background: rgba(255, 51, 72, .06);
+  box-shadow: var(--glow-red);
+}
+
+.skill-tree--animate.skill-tree--visible .skill-box--red.glow-pulse {
+  animation: glowPulseRed 3s ease-in-out infinite alternate;
+  animation-delay: 2.1s;
 }
 
 .skill-tree--animate.skill-tree--visible .skill-tree__top {
@@ -547,17 +603,19 @@ img { max-width: 100%; display: block; }
 
 .skill-tree--animate.skill-tree--visible .skill-tree__bottom .skill-box:nth-child(2) {
   opacity: 1; transform: translateY(0);
-  transition-delay: .65s;
+  transition-delay: .75s;
 }
 
 .skill-tree--animate.skill-tree--visible .skill-tree__bottom .skill-box:nth-child(3) {
   opacity: 1; transform: translateY(0);
-  transition-delay: .8s;
+  transition-delay: 1s;
 }
 
+/* De stilte hiervoor is de grap: drie lampjes floepen aan, dan een tel niks,
+   en dan pas Techniek op rood. */
 .skill-tree--animate.skill-tree--visible .skill-tree__bottom .skill-box:nth-child(4) {
   opacity: 1; transform: translateY(0);
-  transition-delay: 1s;
+  transition-delay: 1.8s;
 }
 
 .skill-tree__top {
@@ -704,10 +762,11 @@ img { max-width: 100%; display: block; }
 }
 
 .deelder-quote p {
-  font-size: 1.2rem;
-  font-weight: 600;
-  line-height: 1.6;
-  color: var(--text-main);
+  font-size: clamp(1.3rem, 3.4vw, 1.85rem);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -.015em;
+  color: #fff;
 }
 
 .deelder-quote footer {
@@ -1041,5 +1100,22 @@ img { max-width: 100%; display: block; }
     opacity: 1;
     transform: none;
     transition: none;
+  }
+  /* Lampjes meteen aan in plaats van grijs wachten op de reeks */
+  .skill-tree--animate .skill-box--green {
+    border-color: var(--neon-green);
+    color: var(--neon-green);
+    background: rgba(57, 255, 20, .06);
+    box-shadow: var(--glow-green);
+  }
+  .skill-tree--animate .skill-box--red {
+    border-color: var(--neon-red);
+    color: var(--neon-red);
+    background: rgba(255, 51, 72, .06);
+    box-shadow: var(--glow-red);
+  }
+  /* Specifieker dan de regel die de pulse weer aanzet */
+  .skill-tree--animate.skill-tree--visible .skill-box--red.glow-pulse {
+    animation: none;
   }
 }
