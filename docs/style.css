@@ -1587,3 +1587,19 @@ button.btn {
 .nb-masthead + .section {
   padding-top: 2.25rem;
 }
+
+/* Knoppen in een rij: de marge die btn--primary voor de hero heeft,
+   duwt hem hier scheef. In een rij lijnt alles op de basislijn. */
+.nb-promo__acties .btn,
+.ed-cta .btn {
+  margin-top: 0;
+}
+
+/* Een <button> en een <a> rekenen regelhoogte verschillend, waardoor ze
+   naast elkaar niet even hoog werden. Zo meten ze identiek. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+}
