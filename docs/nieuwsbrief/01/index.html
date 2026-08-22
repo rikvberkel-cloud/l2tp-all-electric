@@ -147,7 +147,7 @@
 
       <hr class="ed-rule">
 
-      <p class="ed-cta"><a href="../" class="btn btn--green">Alle brieven</a></p>
+      <p class="ed-cta"><button type="button" class="btn btn--green ml-onclick-form" onclick="ml('show', '6erjz7', true)">Aanmelden</button> <a href="../" class="btn btn--secondary">Alle brieven</a></p>
       <p class="newsletter__note">Nog niet ingeschreven? Dat kan op de <a href="../" class="nb-inline-link">nieuwsbriefpagina</a>. Eén mail per maand, uitschrijven met één klik. Zie de <a href="../../privacy/" class="nb-inline-link">privacyverklaring</a>.</p>
 
     </div>
@@ -156,5 +156,14 @@
   <footer class="footer">
     <p>&copy; DJ Rikkert010, Rotterdam &middot; <a href="../../privacy/" class="nb-inline-link">Privacy</a></p>
   </footer>
+
+  <!-- MailerLite Universal, nodig om de aanmeldknop te laten werken -->
+  <script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2547241');
+  </script>
 </body>
 </html>

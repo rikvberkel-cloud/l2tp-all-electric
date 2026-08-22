@@ -1440,3 +1440,24 @@ img { max-width: 100%; display: block; }
 
 /* Het schema op de editiepagina staat stil, zonder scroll-animatie */
 .prose .skill-tree { margin: 2rem 0; }
+
+/* Twee knoppen naast elkaar, netjes afbrekend op smalle schermen */
+.nb-promo__acties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  align-items: center;
+}
+
+.ed-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  align-items: center;
+}
+
+/* De aanmeldknop is een <button>, die erft de fontfamilie niet automatisch */
+button.btn {
+  font-family: var(--font);
+  cursor: pointer;
+}
