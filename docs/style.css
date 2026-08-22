@@ -1365,3 +1365,78 @@ img { max-width: 100%; display: block; }
   background: transparent;
   color: var(--neon-green);
 }
+
+/* Uitkomst op rood: als één voorwaarde blokkeert, blokkeert de uitkomst ook */
+.skill-box--blocked {
+  border-color: var(--neon-red);
+  color: var(--neon-red);
+  background: rgba(255, 51, 72, .08);
+  box-shadow: var(--glow-red);
+}
+
+/* ---- EDITIEPAGINA ---- */
+.ed-back { font-size: .85rem; margin-bottom: 2rem; }
+
+.ed-meta {
+  font-size: .78rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--neon-green);
+  margin-bottom: .5rem;
+}
+
+.ed-title {
+  font-size: clamp(1.7rem, 4.6vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+  color: #fff;
+  margin-bottom: .75rem;
+}
+
+.ed-preheader {
+  font-size: clamp(1.05rem, 2.4vw, 1.25rem);
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+}
+
+.ed-tags { display: flex; flex-wrap: wrap; gap: .35rem; }
+
+.ed-rule {
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, .1);
+  margin: 2.5rem 0;
+}
+
+.ed-rubriek {
+  font-size: .75rem;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--neon-cyan);
+  margin: 3rem 0 .25rem;
+}
+
+.prose .ed-rubriek + .prose__h2 { margin-top: .25rem; }
+
+.ed-figure { margin: 1.75rem 0; }
+
+.ed-figure img {
+  width: 100%;
+  border: 2px solid rgba(57, 255, 20, .35);
+  border-radius: 6px;
+}
+
+.ed-figure figcaption {
+  margin-top: .6rem;
+  font-size: .8rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.ed-sterren { font-size: 1.15rem; letter-spacing: .1em; }
+
+.ed-cta { margin: 2rem 0 1rem; }
+
+/* Het schema op de editiepagina staat stil, zonder scroll-animatie */
+.prose .skill-tree { margin: 2rem 0; }
