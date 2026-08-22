@@ -543,16 +543,16 @@ img { max-width: 100%; display: block; }
 }
 
 /* Animation: hidden by default, JS adds --visible */
-.skill-tree--animate .skill-tree__top,
-.skill-tree--animate .skill-tree__connector {
+.js .skill-tree--animate .skill-tree__top,
+.js .skill-tree--animate .skill-tree__connector {
   opacity: 0;
   transform: translateY(16px);
   transition: opacity .4s ease, transform .4s ease;
 }
 
 /* De lampjes staan eerst UIT: grijs, geen gloed. */
-.skill-tree--animate .skill-box--green,
-.skill-tree--animate .skill-box--red {
+.js .skill-tree--animate .skill-box--green,
+.js .skill-tree--animate .skill-box--red {
   opacity: 0;
   transform: translateY(16px);
   border-color: rgba(255, 255, 255, .14);
@@ -565,7 +565,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* Pulserende gloed pas laten starten als het lampje aan is */
-.skill-tree--animate .skill-box--red.glow-pulse {
+.js .skill-tree--animate .skill-box--red.glow-pulse {
   animation: none;
 }
 
@@ -1068,7 +1068,7 @@ img { max-width: 100%; display: block; }
 /* ============================================
    FADE-IN ANIMATION (scroll-triggered via JS)
    ============================================ */
-.fade-in {
+.js .fade-in {
   opacity: 0;
   transform: translateY(24px);
   transition: opacity .6s ease, transform .6s ease;
@@ -1530,4 +1530,58 @@ button.btn {
   cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+/* ============================================
+   AFWERKING NA DE UX-REVIEW
+   ============================================ */
+
+/* Naam past nu op één regel, ook op een telefoon */
+.hero__title {
+  font-size: clamp(2.4rem, 8vw, 5.5rem);
+}
+
+.hero__sub {
+  margin-top: .6rem;
+  font-size: clamp(.95rem, 2.2vw, 1.15rem);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Minder verticale leegte tussen de secties */
+.section {
+  padding: 3.5rem 0;
+}
+
+@media (max-width: 640px) {
+  .section { padding: 2.75rem 0; }
+}
+
+/* Archiefkop: kleiner dan de masthead en met lucht erboven */
+.nb-subkop {
+  margin-top: 3.5rem;
+  font-size: clamp(1.3rem, 3.4vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+  color: var(--neon-yellow);
+  text-shadow: var(--glow-yellow);
+  padding-bottom: .5rem;
+  border-bottom: 2px solid var(--neon-cyan);
+}
+
+.nb-subkop__hint {
+  margin: .75rem 0 1.5rem;
+  font-size: .9rem;
+  color: var(--text-muted);
+}
+
+/* Gat tussen masthead en eerste alinea dichten */
+.nb-masthead {
+  padding-bottom: 1.25rem;
+}
+
+.nb-masthead + .section {
+  padding-top: 2.25rem;
 }

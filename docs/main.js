@@ -5,6 +5,10 @@
 (function () {
   'use strict';
 
+  /* JavaScript draait, dus animaties mogen aan. Zonder deze klasse blijft
+     alle inhoud gewoon zichtbaar in plaats van op opacity 0 te hangen. */
+  document.documentElement.classList.add('js');
+
   /* ------------------------------------------
      1. CURSOR GLOW (desktop only)
      ------------------------------------------ */
