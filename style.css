@@ -1074,7 +1074,9 @@ img { max-width: 100%; display: block; }
   transition: opacity .6s ease, transform .6s ease;
 }
 
-.fade-in--visible {
+/* Zwaarder dan .js .fade-in, anders verliest deze regel en blijft de
+   inhoud onzichtbaar zodra JavaScript draait. */
+.js .fade-in.fade-in--visible {
   opacity: 1;
   transform: translateY(0);
 }
