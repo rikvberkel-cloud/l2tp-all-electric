@@ -42,12 +42,12 @@
        ============================================ -->
   <nav class="site-nav" id="siteNav" aria-label="Hoofdnavigatie">
     <div class="site-nav__inner">
-      <a href="#hero" class="site-nav__brand">DJ Rikkert010</a>
+      <a href="#hero" class="site-nav__brand">Late 2 The Party</a>
       <ul class="site-nav__links">
         <li><a href="#over" class="site-nav__link">Over</a></li>
         <li><a href="#agenda" class="site-nav__link">Agenda</a></li>
         <li><a href="#luister" class="site-nav__link">Luister</a></li>
-        <li><a href="#nieuwsbrief" class="site-nav__link">Brief</a></li>
+        <li><a href="#nieuwsbrief" class="site-nav__link">Nieuwsbrief</a></li>
         <li><a href="#faq" class="site-nav__link">FAQ</a></li>
       </ul>
       <a href="#contact" class="site-nav__cta">Boek</a>
@@ -69,7 +69,7 @@
         <a href="https://open.spotify.com/playlist/5kQzJcHHc57Rl9Vzh4SRj6?si=ad35b520052c4538" class="genre-tag" target="_blank" rel="noopener" aria-label="Beukers en zagers playlist op Spotify">Beukers &amp; zagers</a>
       </div>
 
-      <a href="#contact" class="btn btn--primary" aria-label="Scroll naar boekingssectie">BOEK RIKKERT010</a>
+      <button type="button" class="btn btn--primary ml-onclick-form" onclick="ml('show', '6erjz7', true)">Ontvang de nieuwsbrief</button>
     </div>
   </section>
 
@@ -150,25 +150,36 @@
       <!-- TOURDATA -->
       <div class="agenda fade-in" aria-label="Agenda met optredens">
         <p class="agenda__year">2026</p>
-        <ul class="agenda__list">
 
-          <!--
-            NIEUWE DATUM TOEVOEGEN: kopieer een <li> hieronder.
-            datum (DD-MM) | vlag + plaats | naam van het optreden
-          -->
-          <li class="agenda__row">
-            <span class="agenda__date">31-07</span>
-            <span class="agenda__location"><span class="agenda__flag">🏳️‍🌈</span> Amsterdam</span>
-            <span class="agenda__event">PRIDE COMPANY PARTY</span>
-          </li>
+        <div class="agenda-tabs" role="tablist" aria-label="Komende en eerdere optredens">
+          <button class="agenda-tab agenda-tab--on" id="tab-komend" role="tab"
+                  aria-selected="true" aria-controls="paneel-komend" data-paneel="komend">Komend</button>
+          <button class="agenda-tab" id="tab-geweest" role="tab"
+                  aria-selected="false" aria-controls="paneel-geweest" data-paneel="geweest">Geweest</button>
+        </div>
 
-          <li class="agenda__row">
-            <span class="agenda__date">15-08</span>
-            <span class="agenda__location"><span class="agenda__flag">🇳🇱</span> Rotterdam</span>
-            <span class="agenda__event">TELLES B-DAY</span>
-          </li>
+        <!--
+          NIEUWE DATUM: kopieer een <li> naar het juiste paneel.
+          datum (DD-MM) | vlag + plaats | naam van het optreden
+        -->
+        <div class="agenda-paneel" id="paneel-komend" role="tabpanel" aria-labelledby="tab-komend">
+          <p class="agenda-leeg">Nog niets in de boeken. <button type="button" class="agenda-leeg__knop" onclick="document.getElementById('contact').scrollIntoView()">Boek me</button></p>
+        </div>
 
-        </ul>
+        <div class="agenda-paneel" id="paneel-geweest" role="tabpanel" aria-labelledby="tab-geweest" hidden>
+          <ul class="agenda__list">
+            <li class="agenda__row">
+              <span class="agenda__date">15-08</span>
+              <span class="agenda__location"><span class="agenda__flag">🇳🇱</span> Rotterdam</span>
+              <span class="agenda__event">Caf&eacute; Soif, met piDJon</span>
+            </li>
+            <li class="agenda__row">
+              <span class="agenda__date">31-07</span>
+              <span class="agenda__location"><span class="agenda__flag">🏳️‍🌈</span> Amsterdam</span>
+              <span class="agenda__event">Pride Company Party</span>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -282,7 +293,7 @@
   <section class="section section--alt" id="nieuwsbrief">
     <div class="container">
       <p class="nb-kicker">De nieuwsbrief</p>
-      <h2 class="section__heading section__heading--tight neon-green-text">Late 2 The Party</h2>
+      <h2 class="section__heading section__heading--tight neon-text">Late 2 The Party</h2>
       <p class="section__sub">Plaatjes leren draaien &middot; Lifestyle &middot; Kunst &middot; Nachtcultuur &middot; Mode</p>
 
       <div class="nb-promo fade-in">
@@ -291,12 +302,13 @@
         </a>
 
         <div class="nb-promo__tekst">
-          <p>Eén keer per maand een brief over leren draaien op mijn 35e. Met de banger van die maand, de stand van de stoplichten en een zijstraat.</p>
+          <p class="lead">Op de hoogte blijven?</p>
+          <p>Ontvang de Late 2 The Party Nieuwsbrief. Plaatjes, zijstraatjes en praatjes. Van elektronische tunes tot lifestyle.</p>
           <div class="nb-promo__acties">
-            <button type="button" class="btn btn--green ml-onclick-form" onclick="ml('show', '6erjz7', true)">Aanmelden</button>
+            <button type="button" class="btn btn--primary ml-onclick-form" onclick="ml('show', '6erjz7', true)">Aanmelden</button>
             <a href="nieuwsbrief/" class="btn btn--secondary">Lees de brieven</a>
           </div>
-          <p class="newsletter__note">Eén mail per maand. Uitschrijven met één klik. Zie de <a href="privacy/" class="nb-inline-link">privacyverklaring</a>.</p>
+          <p class="newsletter__note">Eén mail per maand. Uitschrijven met één klik.</p>
         </div>
       </div>
     </div>

@@ -137,4 +137,27 @@
 
     spyTargets.forEach(function (t) { spyObserver.observe(t); });
   }
+
+  /* ------------------------------------------
+     6. AGENDA TABBLADEN
+     ------------------------------------------ */
+  var agendaTabs = document.querySelectorAll('.agenda-tab');
+
+  if (agendaTabs.length) {
+    agendaTabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var doel = tab.getAttribute('data-paneel');
+
+        agendaTabs.forEach(function (t) {
+          var actief = t === tab;
+          t.classList.toggle('agenda-tab--on', actief);
+          t.setAttribute('aria-selected', actief ? 'true' : 'false');
+        });
+
+        document.querySelectorAll('.agenda-paneel').forEach(function (paneel) {
+          paneel.hidden = paneel.id !== 'paneel-' + doel;
+        });
+      });
+    });
+  }
 })();
