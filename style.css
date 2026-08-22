@@ -1119,3 +1119,249 @@ img { max-width: 100%; display: block; }
     animation: none;
   }
 }
+
+/* ============================================
+   NIEUWSBRIEFPAGINA EN PRIVACY
+   Groen als hoofdkleur, zoals de masthead van de brief.
+   ============================================ */
+.neon-green-text {
+  color: var(--neon-green);
+  text-shadow: var(--glow-green);
+}
+
+/* ---- MASTHEAD ---- */
+.nb-masthead {
+  padding: 3.5rem 0 2rem;
+  border-bottom: 1px solid rgba(57, 255, 20, .18);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(57, 255, 20, .07) 0%, transparent 65%),
+    var(--bg-dark);
+}
+
+.nb-masthead__kicker {
+  font-size: .8rem;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--neon-green);
+  margin-bottom: .5rem;
+}
+
+.nb-masthead__title {
+  font-size: clamp(2.6rem, 9vw, 5rem);
+  font-weight: 700;
+  line-height: .95;
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+  color: var(--neon-green);
+  text-shadow: var(--glow-green);
+}
+
+.nb-masthead__tags {
+  margin-top: 1rem;
+  font-size: .85rem;
+  color: var(--text-muted);
+  letter-spacing: .04em;
+}
+
+/* ---- TAGFILTER ---- */
+.nb-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-bottom: 2rem;
+}
+
+.nb-filter {
+  font-family: var(--font);
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  padding: .45rem .9rem;
+  border-radius: 999px;
+  cursor: pointer;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, .14);
+  transition: color .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.nb-filter:hover {
+  color: var(--neon-green);
+  border-color: rgba(57, 255, 20, .5);
+}
+
+.nb-filter--on {
+  color: var(--bg-dark);
+  background: var(--neon-green);
+  border-color: var(--neon-green);
+  box-shadow: var(--glow-green);
+}
+
+.nb-filter:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 3px;
+}
+
+/* ---- EDITIELIJST ---- */
+.nb-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.nb-item {
+  border-top: 1px solid rgba(255, 255, 255, .08);
+}
+
+.nb-item:last-child {
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.nb-item__link {
+  display: block;
+  padding: 1.4rem .25rem;
+  transition: background .2s ease, padding-left .2s ease;
+}
+
+.nb-item__link:hover {
+  background: rgba(57, 255, 20, .05);
+  padding-left: .75rem;
+}
+
+.nb-item__link:focus-visible {
+  outline: 2px solid var(--neon-green);
+  outline-offset: 2px;
+}
+
+.nb-item__meta {
+  display: block;
+  font-size: .75rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--neon-green);
+  margin-bottom: .35rem;
+}
+
+.nb-item__title {
+  font-size: clamp(1.1rem, 2.6vw, 1.4rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -.01em;
+  text-wrap: balance;
+  margin-bottom: .35rem;
+}
+
+.nb-item__link:hover .nb-item__title {
+  color: var(--neon-green);
+}
+
+.nb-item__teaser {
+  color: var(--text-muted);
+  font-size: .95rem;
+  margin-bottom: .6rem;
+}
+
+.nb-item__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem;
+}
+
+.nb-tag {
+  font-size: .68rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 999px;
+  padding: .18rem .55rem;
+}
+
+.nb-empty {
+  color: var(--text-muted);
+  padding: 1.5rem 0;
+}
+
+.nb-inline-link {
+  color: var(--neon-green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---- LOPENDE TEKST, privacy ---- */
+.prose {
+  max-width: 68ch;
+}
+
+.prose p {
+  margin-bottom: 1rem;
+  font-size: 1.02rem;
+}
+
+.prose__h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  color: var(--neon-green);
+  margin: 2.2rem 0 .75rem;
+}
+
+.prose a {
+  color: var(--neon-cyan);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---- NIEUWSBRIEFBLOK OP DE HOMEPAGE ---- */
+.nb-kicker {
+  font-size: .78rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--neon-green);
+  margin-bottom: .4rem;
+}
+
+.nb-promo {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 700px) {
+  .nb-promo { grid-template-columns: 1fr; gap: 1.5rem; }
+}
+
+.nb-promo__beeld {
+  display: block;
+  border: 2px solid var(--neon-green);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: var(--glow-green);
+  transition: transform .25s ease;
+}
+
+.nb-promo__beeld:hover { transform: translateY(-3px); }
+
+.nb-promo__beeld:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 3px;
+}
+
+.nb-promo__tekst p { margin-bottom: 1rem; }
+
+.nb-promo__acties { margin: 1.25rem 0 .75rem; }
+
+.btn--green {
+  background: var(--neon-green);
+  color: var(--bg-dark);
+  border-color: var(--neon-green);
+  box-shadow: var(--glow-green);
+  margin-top: 0;
+}
+
+.btn--green:hover {
+  background: transparent;
+  color: var(--neon-green);
+}
