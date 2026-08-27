@@ -1603,3 +1603,10 @@ button.btn {
   justify-content: center;
   line-height: 1.2;
 }
+
+/* ---- HERO: verbinding met het platform ---- */
+.hero__platform {
+  margin-top: 1.75rem;
+  font-size: .85rem;
+  color: var(--text-muted);
+}
