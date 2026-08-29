@@ -83,8 +83,8 @@ img { max-width: 100%; display: block; }
 .site-nav__brand {
   font-weight: 700;
   font-size: .95rem;
-  text-transform: uppercase;
-  letter-spacing: .06em;
+  text-transform: none;
+  letter-spacing: .04em;
   color: var(--text-main);
   white-space: nowrap;
   transition: color .2s ease, text-shadow .2s ease;
@@ -1144,13 +1144,14 @@ img { max-width: 100%; display: block; }
 }
 
 .nb-masthead__kicker {
-  font-size: clamp(1.6rem, 6vw, 3rem);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -.01em;
-  text-transform: uppercase;
-  color: var(--neon-yellow);
-  text-shadow: var(--glow-yellow);
+  font-size: clamp(.8rem, 2vw, .95rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: .04em;
+  text-transform: none;
+  color: var(--text-muted);
+  text-shadow: none;
+  margin-bottom: .65rem;
 }
 
 .nb-masthead__title {
@@ -1452,6 +1453,8 @@ img { max-width: 100%; display: block; }
 
 .ed-sterren { font-size: 1.15rem; letter-spacing: .1em; }
 
+.prose .spotify-embed { margin-top: 1.25rem; }
+
 .ed-cta { margin: 2rem 0 1rem; }
 
 /* Het schema op de editiepagina staat stil, zonder scroll-animatie */
@@ -1602,13 +1605,6 @@ button.btn {
   align-items: center;
   justify-content: center;
   line-height: 1.2;
-}
-
-/* ---- HERO: verbinding met het platform ---- */
-.hero__platform {
-  margin-top: 1.75rem;
-  font-size: .85rem;
-  color: var(--text-muted);
 }
 
 /* Tweede laag onder DJ uit Rotterdam: een volle zin, geen label,
