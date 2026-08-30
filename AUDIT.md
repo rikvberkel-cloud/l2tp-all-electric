@@ -45,7 +45,7 @@ Statische site zonder backend, auth of database. Geen secrets in de code.
 
 | # | Risico | Toelichting | Advies |
 |---|--------|-------------|--------|
-| S1 | AVG / third-party | Google Fonts laadt vanaf Google (IP van bezoeker) | Font zelf hosten (staat al op Notion-todo) |
+| S1 | AVG / third-party | ~~Google Fonts~~ → Space Grotesk lokaal in `docs/fonts/` | Gedaan in deze PR |
 | S2 | Supply chain | MailerLite `universal.js` zonder Subresource Integrity | Acceptabel voor embeds; SRI breekt vaak bij CDN-updates. Blijf bij account `2547241` / form `aK1pC9` |
 | S3 | Third-party cookies | Spotify-embeds (na interactie op mobiel) en MailerLite-formulier | Al genoemd in privacyverklaring |
 | S4 | Headers | Geen CSP / HSTS vanuit de site zelf; GitHub Pages + Enforce HTTPS staat aan | Voldoende voor deze stack; CSP via meta is optioneel en snel te streng met embeds |
@@ -90,9 +90,10 @@ Niet aangeraakt (bewust of buiten scope):
 
 ---
 
-## 5. Aanbevolen vervolgstappen (buiten deze PR)
+## 5. Aanbevolen vervolgstappen (buiten code)
 
-1. **Default branch** op GitHub omzetten naar `main` (of de huidige Pages-bron). Voorkomt dat uploads de oude KO.OS.-site raken.
-2. Google Fonts zelf hosten (AVG).
-3. MailerLite-form `aK1pC9` NL + huisstijl; popup `6erjz7` pauzeren.
-4. Roadmap Type Website: B1 sets, B2 boekingsflow, enz. (input nodig).
+1. **Default branch** op GitHub omzetten naar `main` (Settings → General → Default branch). Agent-token heeft hier geen schrijfrecht.
+2. MailerLite-form `aK1pC9` NL + huisstijl; popup `6erjz7` pauzeren.
+3. Roadmap Type Website: B1 sets, B2 boekingsflow, enz. (input nodig).
+
+~~Google Fonts zelf hosten~~ → gedaan (`docs/fonts/`).
