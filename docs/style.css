@@ -14,7 +14,7 @@
   --neon-red: #ff3348;
   --neon-green: #39ff14;
   --bg-dark: #0a0a0f;
-  --bg-alt: #0f0f18;
+  --bg-alt: #15151f;
   --text-main: #e0e0e0;
   --text-muted: #888;
   --font: 'Space Grotesk', sans-serif;
@@ -51,6 +51,31 @@ a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
 img { max-width: 100%; display: block; }
 
+/* ---- SKIP-LINK (toegankelijkheid) ---- */
+.skip-link {
+  position: absolute;
+  left: .75rem;
+  top: -3.5rem;
+  z-index: 1100;
+  padding: .55rem 1rem;
+  border-radius: 4px;
+  font-weight: 700;
+  background: var(--neon-yellow);
+  color: var(--bg-dark);
+  box-shadow: var(--glow-yellow);
+  transition: top .2s ease;
+}
+
+.skip-link:focus {
+  top: .75rem;
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 2px;
+}
+
+#hoofdinhoud:focus {
+  outline: none;
+}
+
 /* ---- CONTAINER ---- */
 .container {
   max-width: 860px;
@@ -72,7 +97,7 @@ img { max-width: 100%; display: block; }
 }
 
 .site-nav__inner {
-  max-width: 1000px;
+  max-width: 860px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -258,43 +283,8 @@ img { max-width: 100%; display: block; }
   text-shadow: var(--glow-yellow);
 }
 
-.text-cyan {
-  color: var(--neon-cyan);
-  text-shadow: var(--glow-cyan);
-}
-
-.text-red {
-  color: var(--neon-red);
-  text-shadow: 0 0 8px rgba(255, 51, 72, .6);
-}
-
 .text-muted {
   color: var(--text-muted);
-}
-
-/* ============================================
-   GRADIENT TEXT (cyan → yellow)
-   ============================================ */
-.gradient-text {
-  background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-yellow) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  /* glow uses a blurred pseudo-element */
-  position: relative;
-}
-
-.gradient-text::after {
-  content: attr(data-text);
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-yellow) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: blur(12px);
-  opacity: .5;
-  z-index: -1;
 }
 
 /* ============================================
@@ -402,11 +392,6 @@ img { max-width: 100%; display: block; }
   box-shadow: var(--glow-cyan);
 }
 
-.genre-tag[href="#"] {
-  pointer-events: none;
-  cursor: default;
-}
-
 .genre-tag:focus-visible {
   outline: 2px solid var(--neon-yellow);
   outline-offset: 2px;
@@ -459,13 +444,6 @@ img { max-width: 100%; display: block; }
   color: var(--bg-dark);
 }
 
-.btn--copied {
-  border-color: var(--neon-yellow) !important;
-  color: var(--neon-yellow) !important;
-  box-shadow: var(--glow-yellow) !important;
-  background: transparent !important;
-}
-
 /* ============================================
    SECTIONS
    ============================================ */
@@ -476,6 +454,8 @@ img { max-width: 100%; display: block; }
 
 .section--alt {
   background: var(--bg-alt);
+  border-top: 1px solid rgba(255, 255, 255, .05);
+  border-bottom: 1px solid rgba(255, 255, 255, .05);
 }
 
 .section__heading {
@@ -752,11 +732,6 @@ img { max-width: 100%; display: block; }
 /* ============================================
    ROTTERDAM
    ============================================ */
-.rotterdam-sub {
-  font-style: italic;
-  margin-top: .5rem;
-}
-
 .deelder-quote {
   border-left: 3px solid var(--neon-cyan);
   padding: 1rem 1.5rem;
@@ -776,12 +751,6 @@ img { max-width: 100%; display: block; }
   margin-top: .5rem;
   color: var(--text-muted);
   font-size: .9rem;
-}
-
-.rotterdam-icons {
-  margin-top: 1.25rem;
-  color: var(--neon-cyan);
-  font-weight: 600;
 }
 
 /* ============================================
@@ -939,103 +908,9 @@ img { max-width: 100%; display: block; }
 /* ============================================
    NIEUWSBRIEF
    ============================================ */
-.newsletter {
-  max-width: 620px;
-}
-
-.newsletter__pitch {
-  font-size: 1.05rem;
-  margin-bottom: 1.25rem;
-}
-
-.newsletter__what {
-  display: flex;
-  flex-direction: column;
-  gap: .5rem;
-  margin-bottom: 1.75rem;
-}
-
-.newsletter__what li {
-  position: relative;
-  padding-left: 1.5rem;
-  color: var(--text-muted);
-}
-
-.newsletter__what li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: .65em;
-  width: 8px;
-  height: 8px;
-  border: 2px solid var(--neon-cyan);
-  box-shadow: var(--glow-cyan);
-}
-
-/* MailerLite embed krijgt lucht; de vormgeving zelf regel je in MailerLite */
-.ml-embedded {
-  margin: 0 0 .75rem;
-}
-
 .newsletter__note {
   font-size: .85rem;
   color: var(--text-muted);
-}
-
-/* ---- ARCHIEF ---- */
-.newsletter__archive {
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, .08);
-}
-
-.newsletter__archive-heading {
-  font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  color: var(--neon-cyan);
-  margin-bottom: 1.25rem;
-}
-
-.archive-list {
-  display: flex;
-  flex-direction: column;
-}
-
-.archive-item {
-  padding: 1.1rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, .08);
-}
-
-.archive-item:first-child {
-  border-top: 1px solid rgba(255, 255, 255, .08);
-}
-
-.archive-item__meta {
-  display: block;
-  font-size: .78rem;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: .2rem;
-}
-
-.archive-item__title {
-  font-size: 1.05rem;
-  font-weight: 600;
-  transition: color .2s ease, text-shadow .2s ease;
-}
-
-.archive-item__title:hover {
-  color: var(--neon-yellow);
-  text-shadow: var(--glow-yellow);
-}
-
-.archive-item__teaser {
-  color: var(--text-muted);
-  font-size: .92rem;
-  margin-top: .2rem;
 }
 
 /* ============================================
@@ -1129,11 +1004,6 @@ img { max-width: 100%; display: block; }
    NIEUWSBRIEFPAGINA EN PRIVACY
    Groen als hoofdkleur, zoals de masthead van de brief.
    ============================================ */
-.neon-green-text {
-  color: var(--neon-green);
-  text-shadow: var(--glow-green);
-}
-
 /* ---- MASTHEAD ---- */
 .nb-masthead {
   padding: 3.5rem 0 2rem;
@@ -1326,14 +1196,6 @@ img { max-width: 100%; display: block; }
 }
 
 /* ---- NIEUWSBRIEFBLOK OP DE HOMEPAGE ---- */
-.nb-kicker {
-  font-size: .78rem;
-  letter-spacing: .26em;
-  text-transform: uppercase;
-  color: var(--neon-cyan);
-  margin-bottom: .4rem;
-}
-
 .nb-promo {
   display: grid;
   grid-template-columns: 300px 1fr;
@@ -1364,19 +1226,6 @@ img { max-width: 100%; display: block; }
 .nb-promo__tekst p { margin-bottom: 1rem; }
 
 .nb-promo__acties { margin: 1.25rem 0 .75rem; }
-
-.btn--green {
-  background: var(--neon-green);
-  color: var(--bg-dark);
-  border-color: var(--neon-green);
-  box-shadow: var(--glow-green);
-  margin-top: 0;
-}
-
-.btn--green:hover {
-  background: transparent;
-  color: var(--neon-green);
-}
 
 /* Uitkomst op rood: als één voorwaarde blokkeert, blokkeert de uitkomst ook */
 .skill-box--blocked {
