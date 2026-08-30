@@ -198,8 +198,6 @@
   /* ------------------------------------------
      8. SPOTIFY: desktop meteen, mobiel na tap
      ------------------------------------------ */
-  var desktopSpotify = window.matchMedia('(min-width: 641px)').matches;
-
   function mountSpotify(box) {
     if (!box || box.classList.contains('spotify-embed--on')) return;
     var src = box.getAttribute('data-spotify');
@@ -219,16 +217,27 @@
     box.classList.add('spotify-embed--on');
   }
 
-  document.querySelectorAll('.spotify-embed[data-spotify]').forEach(function (box) {
-    if (desktopSpotify) {
-      mountSpotify(box);
-      return;
-    }
-    var playBtn = box.querySelector('.spotify-embed__play');
-    if (playBtn) {
-      playBtn.addEventListener('click', function () { mountSpotify(box); });
-    }
-  });
+  var compactSpotify = window.matchMedia('(max-width: 640px)');
+
+  function wireSpotify() {
+    var compact = compactSpotify.matches;
+    document.querySelectorAll('.spotify-embed[data-spotify]').forEach(function (box) {
+      if (!compact) {
+        mountSpotify(box);
+        return;
+      }
+      var playBtn = box.querySelector('.spotify-embed__play');
+      if (playBtn && !playBtn.getAttribute('data-wired')) {
+        playBtn.setAttribute('data-wired', '1');
+        playBtn.addEventListener('click', function () { mountSpotify(box); });
+      }
+    });
+  }
+
+  wireSpotify();
+  if (compactSpotify.addEventListener) {
+    compactSpotify.addEventListener('change', wireSpotify);
+  }
 
   /* ------------------------------------------
      9. MAILERLITE (homepage uitstellen tot de brief)
