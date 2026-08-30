@@ -14,8 +14,9 @@
      ------------------------------------------ */
   var cursorGlow = document.getElementById('cursorGlow');
   var isTouch = window.matchMedia('(hover: none)').matches;
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (cursorGlow && !isTouch) {
+  if (cursorGlow && !isTouch && !prefersReducedMotion) {
     var glowX = 0, glowY = 0, currentX = 0, currentY = 0;
     var glowActive = false;
 
@@ -48,14 +49,13 @@
      ------------------------------------------ */
   var parallaxSections = document.querySelectorAll('[data-parallax]');
 
-  if (parallaxSections.length > 0 && !isTouch) {
+  if (parallaxSections.length > 0 && !isTouch && !prefersReducedMotion) {
     var ticking = false;
 
     function updateParallax() {
       var scrollY = window.scrollY;
       parallaxSections.forEach(function (section) {
         var speed = parseFloat(section.getAttribute('data-parallax'));
-        var rect = section.getBoundingClientRect();
         var offset = (scrollY - section.offsetTop) * speed;
         var content = section.querySelector('.hero__content, .container');
         if (content) {
@@ -273,7 +273,17 @@
   }
 
   /* ------------------------------------------
-     9. INSCHRIJVEN
+     9. AGENDA "BOEK ME" (lege komende lijst)
+     ------------------------------------------ */
+  document.querySelectorAll('.agenda-leeg__knop').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var contact = document.getElementById('contact');
+      if (contact) contact.scrollIntoView();
+    });
+  });
+
+  /* ------------------------------------------
+     10. INSCHRIJVEN
      Inline embed op #aanmelden. Geen ml('show'):
      dat is de balk-popup (6erjz7, paused in dashboard).
 

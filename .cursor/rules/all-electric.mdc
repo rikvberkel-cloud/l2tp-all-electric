@@ -18,7 +18,7 @@ Gebruik **niet** de oude naam DJ Rikkert010. Geen REL-huisstijl.
 - Commit + push → binnen ~1 minuut live via GitHub Pages
 - Werk **alleen** in `docs/` (geen root-duplicaten)
 # Vormgeving
-- Font: Space Grotesk (400/600/700)
+- Font: Space Grotesk 400/600/700 **lokaal** in `docs/fonts/` (geen Google Fonts)
 - Kleuren: `--neon-yellow` #e6ff00, `--neon-cyan` #00e5ff, `--bg-dark` #0a0a0f
 - Effecten: CRT-scanlines, neon-gloed; respecteer `prefers-reduced-motion`
 - Beeldtaal: jungle/Rousseau + discobal/club-energie
