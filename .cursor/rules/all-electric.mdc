@@ -10,6 +10,7 @@ Dit project is Riks **DJ-hobby**, niet REL of werk.
 - **Mail:** hallo@late2theparty.nl (Proton)
 - **Muziek:** UK garage → hardere tech; let op BPM-overgangen en set-flow
 - **Technische SSOT:** Notion-pagina "Mijn DJ-website + documentatie"
+- **Taken/roadmap:** Notion-database `db} DJ — L2TP roadmap` — Type **Website** voor sitewerk, Type **Nieuwsbrief** voor edities. Oude naam `db} DJ — Late 2 The Party` niet meer gebruiken.
 Gebruik **niet** de oude naam DJ Rikkert010. Geen REL-huisstijl.
 # Stack en structuur
 - Statische site: alleen HTML, CSS, JavaScript in **`docs/`**
