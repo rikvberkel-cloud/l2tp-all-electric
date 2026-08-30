@@ -1225,6 +1225,15 @@ img { max-width: 100%; display: block; }
 
 .nb-promo__tekst p { margin-bottom: 1rem; }
 
+.nb-form {
+  margin: 1.1rem 0 .5rem;
+  max-width: 440px;
+}
+
+.nb-form .ml-embedded {
+  min-height: 4.5rem;
+}
+
 .nb-promo__acties { margin: 1.25rem 0 .75rem; }
 
 /* Uitkomst op rood: als één voorwaarde blokkeert, blokkeert de uitkomst ook */
