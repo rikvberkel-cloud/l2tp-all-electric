@@ -22,13 +22,11 @@
 </head>
 <body class="nb-body">
 
-  <div class="scanlines" aria-hidden="true"></div>
-  <div class="noise" aria-hidden="true"></div>
-
-  <nav class="site-nav" aria-label="Hoofdnavigatie">
+  <nav class="site-nav" id="siteNav" aria-label="Hoofdnavigatie">
     <div class="site-nav__inner">
       <a href="../" class="site-nav__brand">all-electric</a>
-      <ul class="site-nav__links">
+      <button type="button" class="site-nav__toggle" id="navToggle" aria-expanded="false" aria-controls="siteNavLinks">Menu</button>
+      <ul class="site-nav__links" id="siteNavLinks">
         <li><a href="../#over" class="site-nav__link">Over</a></li>
         <li><a href="./" class="site-nav__link site-nav__link--active">Nieuwsbrief</a></li>
         <li><a href="../#agenda" class="site-nav__link">Agenda</a></li>
@@ -57,7 +55,7 @@
       <p>De maandelijkse brief. Plaatjes, zijstraatjes en praatjes. Van elektronische tunes tot lifestyle.</p>
 
       <!-- AANMELDEN: opent het MailerLite-formulier 6erjz7 -->
-      <p class="nb-promo__acties"><button type="button" class="btn btn--primary ml-onclick-form" onclick="ml('show', '6erjz7', true)">Aanmelden</button></p>
+      <p class="nb-promo__acties"><button type="button" class="btn btn--primary js-ml-form">Aanmelden</button></p>
       <p class="newsletter__note">Eén mail per maand en uitschrijven met één click.</p>
 
       <!-- ============================================
@@ -105,13 +103,7 @@
     <p>&copy; all-electric, Rotterdam &middot; Late 2 The Party &middot; <a href="../privacy/" class="nb-inline-link">Privacy</a></p>
   </footer>
 
+  <script src="../main.js"></script>
   <script src="nieuwsbrief.js"></script>
-  <script>
-    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
-    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
-    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
-    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
-    ml('account', '2547241');
-  </script>
 </body>
 </html>
