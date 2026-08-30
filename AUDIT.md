@@ -31,9 +31,9 @@ Geen kritieke beveiligingslekken in deze statische site. Wel een **operationeel 
 | B3 | Laag | Agenda “Boek me” gebruikt inline `onclick=` | Verplaatst naar `main.js` |
 | B4 | Laag | `id="photo-about"` nergens in JS/CSS gebruikt | Verwijderd |
 | B5 | Laag | Cursorgloed/parallax/smooth-scroll negeerden `prefers-reduced-motion` deels | Aangevuld in CSS + JS |
-| B5 | Info | FAQ noemt LinkedIn zonder link | Contentkeuze; niet gewijzigd |
-| B6 | Info | Nieuwsbrieffilters lifestyle/mode tonen lege staat (geen edities met die tags) | Verwacht tot er content is |
-| B7 | Info | Editie #01 gebruikt “DJ Rikkert010” | Bewust historisch per documentatie |
+| B6 | Info | FAQ noemt LinkedIn zonder link | Contentkeuze; niet gewijzigd |
+| B7 | Info | Nieuwsbrieffilters lifestyle/mode tonen lege staat (geen edities met die tags) | Verwacht tot er content is |
+| B8 | Info | Editie #01 gebruikt “DJ Rikkert010” | Bewust historisch per documentatie |
 
 Alle pagina’s (`/`, `/nieuwsbrief/`, `/nieuwsbrief/01/`, `/privacy/`) en assets (`hero.jpg`, `collage.jpg`) geven HTTP 200. Oude paden als `/assets/hero.jpg` geven 404 (correct; die map bestaat niet meer).
 
@@ -65,8 +65,9 @@ Verwijderd of opgeschoond:
 - CSS: `.hero__sub` (ongebruikt alias naast `.hero__kicker`)
 - CSS: `.glow-pulse--green` + `@keyframes glowPulseGreen`
 - CSS: ongebruikte `@keyframes flicker`
-- JS: ongebruikte `rect` in parallax
+- JS: ongebruikte `rect` in parallax; cursorgloed/parallax respecteren nu `prefers-reduced-motion`
 - HTML: ongebruikte `id="photo-about"`; inline agenda-`onclick`
+- CSS: `scroll-behavior: auto` bij reduced motion
 
 Niet aangeraakt (bewust of buiten scope):
 
