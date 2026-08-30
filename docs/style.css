@@ -355,10 +355,6 @@ img { max-width: 100%; display: block; }
   animation: glowPulse 3s ease-in-out infinite alternate;
 }
 
-.glow-pulse--green {
-  animation-name: glowPulseGreen;
-}
-
 .glow-pulse--red {
   animation-name: glowPulseRed;
 }
@@ -366,11 +362,6 @@ img { max-width: 100%; display: block; }
 @keyframes glowPulse {
   0%   { box-shadow: 0 0 6px rgba(0, 229, 255, .4), 0 0 16px rgba(0, 229, 255, .15); }
   100% { box-shadow: 0 0 12px rgba(0, 229, 255, .7), 0 0 36px rgba(0, 229, 255, .3); }
-}
-
-@keyframes glowPulseGreen {
-  0%   { box-shadow: 0 0 6px rgba(57, 255, 20, .3), 0 0 16px rgba(57, 255, 20, .1); }
-  100% { box-shadow: 0 0 12px rgba(57, 255, 20, .6), 0 0 36px rgba(57, 255, 20, .25); }
 }
 
 @keyframes glowPulseRed {
@@ -413,8 +404,7 @@ img { max-width: 100%; display: block; }
   animation: none;
 }
 
-.hero__kicker,
-.hero__sub {
+.hero__kicker {
   font-size: var(--fs-kicker);
   font-weight: 600;
   line-height: 1.2;
@@ -443,18 +433,10 @@ img { max-width: 100%; display: block; }
   text-wrap: pretty;
 }
 
-@keyframes flicker {
-  0%, 90%, 100% { opacity: 1; }
-  92% { opacity: .85; }
-  94% { opacity: 1; }
-  96% { opacity: .9; }
-}
-
 /* ============================================
-   GENRE TAGS
+   GENRE BAND (hero)
    ============================================ */
-.hero__band,
-.genre-tags {
+.hero__band {
   margin: 1.5rem auto 0;
   padding: .9rem .5rem;
   max-width: 40rem;
@@ -467,20 +449,17 @@ img { max-width: 100%; display: block; }
   letter-spacing: .02em;
 }
 
-.hero__band-link,
-.genre-tag {
+.hero__band-link {
   color: inherit;
   text-decoration: none;
   transition: color .2s ease;
 }
 
-.hero__band-link:hover,
-.genre-tag:hover {
+.hero__band-link:hover {
   color: var(--neon-cyan);
 }
 
-.hero__band-link:focus-visible,
-.genre-tag:focus-visible {
+.hero__band-link:focus-visible {
   outline: 2px solid var(--neon-yellow);
   outline-offset: 3px;
 }
@@ -1101,6 +1080,9 @@ img { max-width: 100%; display: block; }
    REDUCED MOTION
    ============================================ */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   .scanlines,
   .noise {
     display: none;
@@ -1114,7 +1096,6 @@ img { max-width: 100%; display: block; }
     animation: none;
   }
   .glow-pulse,
-  .glow-pulse--green,
   .glow-pulse--red {
     animation: none;
   }
