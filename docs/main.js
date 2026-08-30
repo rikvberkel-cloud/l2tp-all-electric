@@ -150,19 +150,49 @@
   var agendaTabs = document.querySelectorAll('.agenda-tab');
 
   if (agendaTabs.length) {
-    agendaTabs.forEach(function (tab) {
+    var tabsArray = Array.prototype.slice.call(agendaTabs);
+
+    function activeerTab(tab, verplaatsFocus) {
+      var doel = tab.getAttribute('data-paneel');
+
+      tabsArray.forEach(function (t) {
+        var actief = t === tab;
+        t.classList.toggle('agenda-tab--on', actief);
+        t.setAttribute('aria-selected', actief ? 'true' : 'false');
+        t.tabIndex = actief ? 0 : -1;
+      });
+
+      document.querySelectorAll('.agenda-paneel').forEach(function (paneel) {
+        paneel.hidden = paneel.id !== 'paneel-' + doel;
+      });
+
+      if (verplaatsFocus) tab.focus();
+    }
+
+    tabsArray.forEach(function (tab, index) {
+      /* Roving tabindex: alleen de actieve tab is met Tab bereikbaar,
+         binnen de tablist navigeer je met de pijltjestoetsen. */
+      tab.tabIndex = tab.getAttribute('aria-selected') === 'true' ? 0 : -1;
+
       tab.addEventListener('click', function () {
-        var doel = tab.getAttribute('data-paneel');
+        activeerTab(tab, false);
+      });
 
-        agendaTabs.forEach(function (t) {
-          var actief = t === tab;
-          t.classList.toggle('agenda-tab--on', actief);
-          t.setAttribute('aria-selected', actief ? 'true' : 'false');
-        });
-
-        document.querySelectorAll('.agenda-paneel').forEach(function (paneel) {
-          paneel.hidden = paneel.id !== 'paneel-' + doel;
-        });
+      tab.addEventListener('keydown', function (e) {
+        var nieuw = null;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          nieuw = tabsArray[(index + 1) % tabsArray.length];
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          nieuw = tabsArray[(index - 1 + tabsArray.length) % tabsArray.length];
+        } else if (e.key === 'Home') {
+          nieuw = tabsArray[0];
+        } else if (e.key === 'End') {
+          nieuw = tabsArray[tabsArray.length - 1];
+        }
+        if (nieuw) {
+          e.preventDefault();
+          activeerTab(nieuw, true);
+        }
       });
     });
   }

@@ -19,14 +19,38 @@
   <meta property="og:url" content="https://www.late2theparty.nl/">
   <meta property="og:image" content="https://www.late2theparty.nl/hero.jpg">
 
+  <!-- Twitter card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="all-electric — DJ uit Rotterdam">
+  <meta name="twitter:description" content="DJ uit Rotterdam. Nieuwsbrief: Late 2 The Party.">
+  <meta name="twitter:image" content="https://www.late2theparty.nl/hero.jpg">
+
+  <meta name="theme-color" content="#0a0a0f">
+
   <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MusicGroup",
+    "name": "all-electric",
+    "description": "DJ uit Rotterdam. UK Garage, Italo Disco en 90's bangers.",
+    "genre": ["UK Garage", "Italo Disco", "90s dance"],
+    "url": "https://www.late2theparty.nl/",
+    "image": "https://www.late2theparty.nl/hero.jpg",
+    "email": "hallo@late2theparty.nl",
+    "foundingLocation": "Rotterdam, Nederland"
+  }
+  </script>
 </head>
 <body data-ml="defer">
+  <a class="skip-link" href="#hoofdinhoud">Naar inhoud</a>
 
   <!-- Cursor glow (desktop only, moved by JS) -->
   <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
@@ -48,6 +72,8 @@
       <a href="#contact" class="site-nav__cta">Boek</a>
     </div>
   </nav>
+
+  <main id="hoofdinhoud" tabindex="-1">
 
   <!-- ============================================
        HERO
@@ -288,10 +314,12 @@
         <p class="text-muted">Snelle afstemming, ongemakkelijk in de omgang.</p>
 
         <!-- MAILADRES AANPASSEN: verander alleen het adres achter "mailto:". -->
-        <a href="mailto:hallo@late2theparty.nl" class="btn btn--primary" aria-label="Stuur een boekingsmail">Mail me</a>
+        <a href="mailto:hallo@late2theparty.nl?subject=Boeking%20all-electric&body=Hoi%20Rik%2C%0A%0AIk%20wil%20je%20graag%20boeken.%20Alvast%20wat%20details%3A%0A%0ADatum%3A%20%0ALocatie%3A%20%0AType%20feest%3A%20%0AVerwachte%20tijd%2Fduur%3A%20%0ABudget%3A%20%0A%0AGroet%2C%0A" class="btn btn--primary" aria-label="Stuur een boekingsmail">Mail me</a>
       </div>
     </div>
   </section>
+
+  </main>
 
   <!-- ============================================
        FOOTER
