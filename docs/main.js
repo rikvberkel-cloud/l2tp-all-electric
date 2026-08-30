@@ -198,11 +198,14 @@
   /* ------------------------------------------
      8. SPOTIFY: desktop meteen, mobiel na tap
      ------------------------------------------ */
-  function mountSpotify(box) {
+  function mountSpotify(box, autoplay) {
     if (!box || box.classList.contains('spotify-embed--on')) return;
     var src = box.getAttribute('data-spotify');
     var title = box.getAttribute('data-title') || 'Spotify';
     if (!src) return;
+    if (autoplay) {
+      src += (src.indexOf('?') >= 0 ? '&' : '?') + 'autoplay=1';
+    }
     var iframe = document.createElement('iframe');
     iframe.src = src;
     iframe.width = '100%';
@@ -229,7 +232,7 @@
       var playBtn = box.querySelector('.spotify-embed__play');
       if (playBtn && !playBtn.getAttribute('data-wired')) {
         playBtn.setAttribute('data-wired', '1');
-        playBtn.addEventListener('click', function () { mountSpotify(box); });
+        playBtn.addEventListener('click', function () { mountSpotify(box, true); });
       }
     });
   }
