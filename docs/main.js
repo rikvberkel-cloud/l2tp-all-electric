@@ -123,7 +123,9 @@
   if (navLinks.length && 'IntersectionObserver' in window) {
     var spyTargets = [];
     navLinks.forEach(function (link) {
-      var target = document.getElementById(link.getAttribute('href').slice(1));
+      var href = link.getAttribute('href') || '';
+      var hash = href.indexOf('#') === -1 ? '' : href.slice(href.indexOf('#') + 1);
+      var target = hash ? document.getElementById(hash) : null;
       if (target) spyTargets.push(target);
     });
 
@@ -163,5 +165,133 @@
         });
       });
     });
+  }
+
+  /* ------------------------------------------
+     7. MOBIELE NAV
+     ------------------------------------------ */
+  var nav = document.getElementById('siteNav') || document.querySelector('.site-nav');
+  var navToggle = document.getElementById('navToggle');
+  var navLinksBox = document.getElementById('siteNavLinks');
+
+  function setNavOpen(open) {
+    if (!nav || !navToggle) return;
+    nav.classList.toggle('is-open', open);
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    navToggle.textContent = open ? 'Sluit' : 'Menu';
+  }
+
+  if (navToggle && nav) {
+    navToggle.addEventListener('click', function () {
+      setNavOpen(!nav.classList.contains('is-open'));
+    });
+    if (navLinksBox) {
+      navLinksBox.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () { setNavOpen(false); });
+      });
+    }
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') setNavOpen(false);
+    });
+  }
+
+  /* ------------------------------------------
+     8. SPOTIFY: desktop meteen, mobiel na tap
+     ------------------------------------------ */
+  var desktopSpotify = window.matchMedia('(min-width: 641px)').matches;
+
+  function mountSpotify(box) {
+    if (!box || box.classList.contains('spotify-embed--on')) return;
+    var src = box.getAttribute('data-spotify');
+    var title = box.getAttribute('data-title') || 'Spotify';
+    if (!src) return;
+    var iframe = document.createElement('iframe');
+    iframe.src = src;
+    iframe.width = '100%';
+    iframe.height = '152';
+    iframe.setAttribute('allow', 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture');
+    iframe.setAttribute('loading', 'lazy');
+    iframe.title = title;
+    iframe.style.borderRadius = '12px';
+    var playBtn = box.querySelector('.spotify-embed__play');
+    if (playBtn) playBtn.remove();
+    box.appendChild(iframe);
+    box.classList.add('spotify-embed--on');
+  }
+
+  document.querySelectorAll('.spotify-embed[data-spotify]').forEach(function (box) {
+    if (desktopSpotify) {
+      mountSpotify(box);
+      return;
+    }
+    var playBtn = box.querySelector('.spotify-embed__play');
+    if (playBtn) {
+      playBtn.addEventListener('click', function () { mountSpotify(box); });
+    }
+  });
+
+  /* ------------------------------------------
+     9. MAILERLITE (homepage uitstellen tot de brief)
+     ------------------------------------------ */
+  var mlReady = false;
+  var mlQueue = [];
+
+  function withMailerLite(cb) {
+    if (typeof window.ml === 'function' && mlReady) {
+      cb();
+      return;
+    }
+    mlQueue.push(cb);
+    loadMailerLite();
+  }
+
+  function loadMailerLite() {
+    if (document.getElementById('mailerlite-universal')) {
+      return;
+    }
+    window.ml = window.ml || function () {
+      (window.ml.q = window.ml.q || []).push(arguments);
+    };
+    window.ml('account', '2547241');
+    var s = document.createElement('script');
+    s.id = 'mailerlite-universal';
+    s.src = 'https://assets.mailerlite.com/js/universal.js';
+    s.async = true;
+    s.onload = function () {
+      mlReady = true;
+      mlQueue.splice(0).forEach(function (cb) { cb(); });
+    };
+    document.head.appendChild(s);
+  }
+
+  document.querySelectorAll('.js-ml-form').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      withMailerLite(function () { window.ml('show', '6erjz7', true); });
+    });
+  });
+
+  var deferMl = document.body.getAttribute('data-ml') === 'defer';
+  if (deferMl) {
+    var nieuwsbrief = document.getElementById('nieuwsbrief');
+    var mlKicked = false;
+    function kickMl() {
+      if (mlKicked) return;
+      mlKicked = true;
+      loadMailerLite();
+    }
+    setTimeout(kickMl, 8000);
+    if (nieuwsbrief && 'IntersectionObserver' in window) {
+      var mlObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            kickMl();
+            mlObs.disconnect();
+          }
+        });
+      }, { threshold: 0.2 });
+      mlObs.observe(nieuwsbrief);
+    }
+  } else if (document.querySelector('.js-ml-form')) {
+    loadMailerLite();
   }
 })();
