@@ -274,100 +274,25 @@
 
   /* ------------------------------------------
      9. INSCHRIJVEN
-     Eigen kader, MailerLite-embed erin. Geen eigen POST:
-     hun formulier heeft reCAPTCHA. Geen ml('show'): dat
-     is de balk-popup.
+     Inline embed op #aanmelden. Geen ml('show'):
+     dat is de balk-popup (6erjz7, paused in dashboard).
 
-     FORMULIER: in MailerLite een Embedded form (geen popup).
-     De waarde van data-form="..." hieronder plakken.
-     Oude popup 6erjz7: unpublished of triggers uit.
+     FORMULIER: Embedded form aK1pC9 in de HTML.
+     Universal JS alleen laden als die embed op de pagina staat.
      ------------------------------------------ */
   var ML_ACCOUNT = '2547241';
-  var ML_EMBED_FORM = 'aK1pC9';
 
-  var mlReady = false;
-  var mlQueue = [];
-
-  function withMailerLite(cb) {
-    if (typeof window.ml === 'function' && mlReady) {
-      cb();
-      return;
+  if (document.querySelector('.ml-embedded')) {
+    if (!document.getElementById('mailerlite-universal')) {
+      window.ml = window.ml || function () {
+        (window.ml.q = window.ml.q || []).push(arguments);
+      };
+      window.ml('account', ML_ACCOUNT);
+      var s = document.createElement('script');
+      s.id = 'mailerlite-universal';
+      s.src = 'https://assets.mailerlite.com/js/universal.js';
+      s.async = true;
+      document.head.appendChild(s);
     }
-    mlQueue.push(cb);
-    loadMailerLite();
-  }
-
-  function loadMailerLite() {
-    if (document.getElementById('mailerlite-universal')) {
-      return;
-    }
-    window.ml = window.ml || function () {
-      (window.ml.q = window.ml.q || []).push(arguments);
-    };
-    window.ml('account', ML_ACCOUNT);
-    var s = document.createElement('script');
-    s.id = 'mailerlite-universal';
-    s.src = 'https://assets.mailerlite.com/js/universal.js';
-    s.async = true;
-    s.onload = function () {
-      mlReady = true;
-      mlQueue.splice(0).forEach(function (fn) { fn(); });
-    };
-    document.head.appendChild(s);
-  }
-
-  function buildSignup() {
-    var root = document.createElement('div');
-    root.className = 'signup';
-    root.setAttribute('hidden', '');
-    root.setAttribute('role', 'dialog');
-    root.setAttribute('aria-modal', 'true');
-    root.setAttribute('aria-labelledby', 'signupTitle');
-    root.innerHTML =
-      '<div class="signup__backdrop" data-signup-close="1"></div>' +
-      '<div class="signup__panel">' +
-        '<button type="button" class="signup__close" data-signup-close="1" aria-label="Sluiten">&times;</button>' +
-        '<p class="signup__kicker">all-electric</p>' +
-        '<h2 class="signup__title" id="signupTitle">Late 2 The Party</h2>' +
-        '<p class="signup__lead">Blijf op de hoogte, volg hoe het draaien vordert, en laat je inspireren. Plaatjes, nachtcultuur, kunst, mode en de rest. Eén mail per maand.</p>' +
-        '<div class="signup__embed ml-embedded" data-form="' + ML_EMBED_FORM + '"></div>' +
-        '<p class="newsletter__note">Bevestigen via de mail. Uitschrijven met één click.</p>' +
-      '</div>';
-    document.body.appendChild(root);
-    return root;
-  }
-
-  var signupRoot = null;
-  var signupOpener = null;
-
-  function openSignup(opener) {
-    if (!signupRoot) {
-      signupRoot = buildSignup();
-      signupRoot.addEventListener('click', function (e) {
-        if (e.target && e.target.getAttribute('data-signup-close')) closeSignup();
-      });
-    }
-    signupOpener = opener || null;
-    signupRoot.removeAttribute('hidden');
-    document.body.classList.add('signup-open');
-    withMailerLite(function () {});
-  }
-
-  function closeSignup() {
-    if (!signupRoot || signupRoot.hasAttribute('hidden')) return;
-    signupRoot.setAttribute('hidden', '');
-    document.body.classList.remove('signup-open');
-    if (signupOpener && typeof signupOpener.focus === 'function') {
-      signupOpener.focus();
-    }
-  }
-
-  if (document.querySelector('.js-ml-form')) {
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') closeSignup();
-    });
-    document.querySelectorAll('.js-ml-form').forEach(function (btn) {
-      btn.addEventListener('click', function () { openSignup(btn); });
-    });
   }
 })();
