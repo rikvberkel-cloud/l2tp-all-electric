@@ -243,8 +243,13 @@
   }
 
   /* ------------------------------------------
-     9. MAILERLITE (homepage uitstellen tot de brief)
+     9. INSCHRIJVEN (MailerLite op de achtergrond)
+     Eigen dialoog in de stijl van de site. MailerLite
+     krijgt het adres; hun balk-popup laten we weg.
      ------------------------------------------ */
+  var ML_SUBSCRIBE =
+    'https://assets.mailerlite.com/public/2547241/forms/194497017347573083/subscribe?signature=f6aa086ab938e58cbe3d248ddd224ef897b1ab42f9d5f92619222a492d5cbe57';
+
   var mlReady = false;
   var mlQueue = [];
 
@@ -271,39 +276,147 @@
     s.async = true;
     s.onload = function () {
       mlReady = true;
-      mlQueue.splice(0).forEach(function (cb) { cb(); });
+      mlQueue.splice(0).forEach(function (fn) { fn(); });
     };
     document.head.appendChild(s);
   }
 
-  document.querySelectorAll('.js-ml-form').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      withMailerLite(function () { window.ml('show', '6erjz7', true); });
-    });
-  });
+  function mlGuid() {
+    var key = 'ml_guid';
+    try {
+      var existing = localStorage.getItem(key);
+      if (existing) return existing;
+      var fresh = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0;
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+      });
+      localStorage.setItem(key, fresh);
+      return fresh;
+    } catch (e) {
+      return String(Date.now());
+    }
+  }
 
-  var deferMl = document.body.getAttribute('data-ml') === 'defer';
-  if (deferMl) {
-    var nieuwsbrief = document.getElementById('nieuwsbrief');
-    var mlKicked = false;
-    function kickMl() {
-      if (mlKicked) return;
-      mlKicked = true;
-      loadMailerLite();
+  function buildSignup() {
+    var root = document.createElement('div');
+    root.className = 'signup';
+    root.setAttribute('hidden', '');
+    root.setAttribute('role', 'dialog');
+    root.setAttribute('aria-modal', 'true');
+    root.setAttribute('aria-labelledby', 'signupTitle');
+    root.innerHTML =
+      '<div class="signup__backdrop" data-signup-close="1"></div>' +
+      '<div class="signup__panel">' +
+        '<button type="button" class="signup__close" data-signup-close="1" aria-label="Sluiten">&times;</button>' +
+        '<p class="signup__kicker">all-electric</p>' +
+        '<h2 class="signup__title" id="signupTitle">Late 2 The Party</h2>' +
+        '<p class="signup__lead">Blijf op de hoogte, volg hoe het draaien vordert, en laat je inspireren. Plaatjes, nachtcultuur, kunst, mode en de rest. Eén mail per maand.</p>' +
+        '<form class="signup__form" novalidate>' +
+          '<label class="sr-only" for="signupEmail">E-mailadres</label>' +
+          '<input class="signup__input" id="signupEmail" name="email" type="email" autocomplete="email" required placeholder="jouw@email.nl">' +
+          '<button type="submit" class="btn btn--primary">Schrijf me in</button>' +
+        '</form>' +
+        '<p class="signup__status" role="status"></p>' +
+        '<p class="newsletter__note">Bevestigen via de mail. Uitschrijven met één click.</p>' +
+      '</div>';
+    document.body.appendChild(root);
+    return root;
+  }
+
+  var signupRoot = null;
+  var signupOpener = null;
+
+  function signupEls() {
+    return {
+      form: signupRoot.querySelector('.signup__form'),
+      email: signupRoot.querySelector('#signupEmail'),
+      status: signupRoot.querySelector('.signup__status'),
+      submit: signupRoot.querySelector('.signup__form .btn')
+    };
+  }
+
+  function setSignupStatus(kind, text) {
+    var status = signupEls().status;
+    status.className = 'signup__status' + (kind ? ' signup__status--' + kind : '');
+    status.textContent = text;
+  }
+
+  function openSignup(opener) {
+    if (!signupRoot) signupRoot = buildSignup();
+    signupOpener = opener || null;
+    signupRoot.removeAttribute('hidden');
+    document.body.classList.add('signup-open');
+    setSignupStatus('', '');
+    signupEls().form.hidden = false;
+    var email = signupEls().email;
+    email.value = '';
+    email.focus();
+  }
+
+  function closeSignup() {
+    if (!signupRoot || signupRoot.hasAttribute('hidden')) return;
+    signupRoot.setAttribute('hidden', '');
+    document.body.classList.remove('signup-open');
+    if (signupOpener && typeof signupOpener.focus === 'function') {
+      signupOpener.focus();
     }
-    setTimeout(kickMl, 8000);
-    if (nieuwsbrief && 'IntersectionObserver' in window) {
-      var mlObs = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            kickMl();
-            mlObs.disconnect();
-          }
-        });
-      }, { threshold: 0.2 });
-      mlObs.observe(nieuwsbrief);
+  }
+
+  function fallbackToMailerLite() {
+    closeSignup();
+    withMailerLite(function () { window.ml('show', '6erjz7', true); });
+  }
+
+  function submitSignup(e) {
+    e.preventDefault();
+    var els = signupEls();
+    var email = (els.email.value || '').trim();
+    if (!els.email.checkValidity()) {
+      setSignupStatus('err', 'Vul een geldig e-mailadres in.');
+      els.email.focus();
+      return;
     }
-  } else if (document.querySelector('.js-ml-form')) {
-    loadMailerLite();
+    els.submit.disabled = true;
+    setSignupStatus('', 'Bezig…');
+
+    var body = {};
+    body['fields.email'] = email;
+    body.guid = mlGuid();
+
+    fetch(ML_SUBSCRIBE, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(body)
+    }).then(function (res) {
+      return res.json().then(function (data) {
+        return { ok: res.ok, data: data };
+      }).catch(function () {
+        return { ok: res.ok, data: {} };
+      });
+    }).then(function (result) {
+      els.submit.disabled = false;
+      if (!result.ok || result.data.success === false) {
+        throw new Error('ml');
+      }
+      els.form.hidden = true;
+      setSignupStatus('ok', 'Check je inbox. Er komt een bevestigingsmail.');
+    }).catch(function () {
+      els.submit.disabled = false;
+      fallbackToMailerLite();
+    });
+  }
+
+  if (document.querySelector('.js-ml-form')) {
+    signupRoot = buildSignup();
+    signupRoot.addEventListener('click', function (e) {
+      if (e.target && e.target.getAttribute('data-signup-close')) closeSignup();
+    });
+    signupRoot.querySelector('.signup__form').addEventListener('submit', submitSignup);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeSignup();
+    });
+    document.querySelectorAll('.js-ml-form').forEach(function (btn) {
+      btn.addEventListener('click', function () { openSignup(btn); });
+    });
   }
 })();

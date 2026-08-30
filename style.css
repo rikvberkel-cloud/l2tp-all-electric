@@ -444,6 +444,15 @@ img { max-width: 100%; display: block; }
   max-width: 28rem;
 }
 
+.hero__pitch {
+  margin: 1.5rem auto 0;
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--text-main);
+  max-width: 32rem;
+  text-wrap: pretty;
+}
+
 @keyframes flicker {
   0%, 90%, 100% { opacity: 1; }
   92% { opacity: .85; }
@@ -519,7 +528,7 @@ img { max-width: 100%; display: block; }
 }
 
 .hero .btn--primary {
-  margin-top: 1.75rem;
+  margin-top: 1.1rem;
 }
 
 .btn--primary:hover {
@@ -1701,3 +1710,143 @@ button.btn {
 .ed-cta .btn {
   margin-top: 0;
 }
+
+/* ============================================
+   INSCHRIJFFORMULIER (vervangt de MailerLite-balk)
+   ============================================ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.signup {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+}
+
+.signup[hidden] { display: none; }
+
+.signup__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 15, .72);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.signup__panel {
+  position: relative;
+  width: min(28rem, 100%);
+  padding: 2rem 1.5rem 1.5rem;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(230, 255, 0, .07) 0%, transparent 65%),
+    var(--bg-dark);
+  border: 2px solid var(--neon-cyan);
+  box-shadow: var(--glow-cyan);
+}
+
+.signup__close {
+  position: absolute;
+  top: .55rem;
+  right: .65rem;
+  background: transparent;
+  border: 0;
+  color: var(--text-muted);
+  font-family: var(--font);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.signup__close:hover,
+.signup__close:focus-visible {
+  color: var(--neon-yellow);
+}
+
+.signup__close:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 3px;
+}
+
+.signup__kicker {
+  font-size: var(--fs-kicker);
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: .65rem;
+}
+
+.signup__title {
+  font-size: var(--fs-heading);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+  color: var(--neon-yellow);
+  text-shadow: var(--glow-yellow);
+  margin-bottom: .85rem;
+}
+
+.signup__lead {
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--text-main);
+  margin-bottom: 1.25rem;
+}
+
+.signup__form {
+  display: flex;
+  flex-direction: column;
+  gap: .7rem;
+  text-align: left;
+}
+
+.signup__input {
+  width: 100%;
+  font-family: var(--font);
+  font-size: var(--fs-body);
+  color: var(--text-main);
+  background: var(--bg-alt);
+  border: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 4px;
+  padding: .7rem .85rem;
+}
+
+.signup__input:focus {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 2px;
+  border-color: var(--neon-cyan);
+}
+
+.signup__form .btn {
+  width: 100%;
+  margin-top: .15rem;
+}
+
+.signup__status {
+  min-height: 1.4em;
+  margin: .35rem 0 0;
+  font-size: .9rem;
+  color: var(--text-muted);
+}
+
+.signup__status--ok { color: var(--neon-green); }
+.signup__status--err { color: var(--neon-red); }
+
+.signup__panel .newsletter__note {
+  margin-top: .85rem;
+}
+
+body.signup-open { overflow: hidden; }
