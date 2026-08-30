@@ -243,12 +243,17 @@
   }
 
   /* ------------------------------------------
-     9. INSCHRIJVEN (MailerLite op de achtergrond)
-     Eigen dialoog in de stijl van de site. MailerLite
-     krijgt het adres; hun balk-popup laten we weg.
+     9. INSCHRIJVEN
+     Eigen kader, MailerLite-embed erin. Geen eigen POST:
+     hun formulier heeft reCAPTCHA. Geen ml('show'): dat
+     is de balk-popup.
+
+     FORMULIER: in MailerLite een Embedded form (geen popup).
+     De waarde van data-form="..." hieronder plakken.
+     Oude popup 6erjz7: unpublished of triggers uit.
      ------------------------------------------ */
-  var ML_SUBSCRIBE =
-    'https://assets.mailerlite.com/public/2547241/forms/194497017347573083/subscribe?signature=f6aa086ab938e58cbe3d248ddd224ef897b1ab42f9d5f92619222a492d5cbe57';
+  var ML_ACCOUNT = '2547241';
+  var ML_EMBED_FORM = 'aK1pC9';
 
   var mlReady = false;
   var mlQueue = [];
@@ -269,7 +274,7 @@
     window.ml = window.ml || function () {
       (window.ml.q = window.ml.q || []).push(arguments);
     };
-    window.ml('account', '2547241');
+    window.ml('account', ML_ACCOUNT);
     var s = document.createElement('script');
     s.id = 'mailerlite-universal';
     s.src = 'https://assets.mailerlite.com/js/universal.js';
@@ -279,22 +284,6 @@
       mlQueue.splice(0).forEach(function (fn) { fn(); });
     };
     document.head.appendChild(s);
-  }
-
-  function mlGuid() {
-    var key = 'ml_guid';
-    try {
-      var existing = localStorage.getItem(key);
-      if (existing) return existing;
-      var fresh = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = Math.random() * 16 | 0;
-        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-      });
-      localStorage.setItem(key, fresh);
-      return fresh;
-    } catch (e) {
-      return String(Date.now());
-    }
   }
 
   function buildSignup() {
@@ -311,12 +300,7 @@
         '<p class="signup__kicker">all-electric</p>' +
         '<h2 class="signup__title" id="signupTitle">Late 2 The Party</h2>' +
         '<p class="signup__lead">Blijf op de hoogte, volg hoe het draaien vordert, en laat je inspireren. Plaatjes, nachtcultuur, kunst, mode en de rest. Eén mail per maand.</p>' +
-        '<form class="signup__form" novalidate>' +
-          '<label class="sr-only" for="signupEmail">E-mailadres</label>' +
-          '<input class="signup__input" id="signupEmail" name="email" type="email" autocomplete="email" required placeholder="jouw@email.nl">' +
-          '<button type="submit" class="btn btn--primary">Schrijf me in</button>' +
-        '</form>' +
-        '<p class="signup__status" role="status"></p>' +
+        '<div class="signup__embed ml-embedded" data-form="' + ML_EMBED_FORM + '"></div>' +
         '<p class="newsletter__note">Bevestigen via de mail. Uitschrijven met één click.</p>' +
       '</div>';
     document.body.appendChild(root);
@@ -326,31 +310,17 @@
   var signupRoot = null;
   var signupOpener = null;
 
-  function signupEls() {
-    return {
-      form: signupRoot.querySelector('.signup__form'),
-      email: signupRoot.querySelector('#signupEmail'),
-      status: signupRoot.querySelector('.signup__status'),
-      submit: signupRoot.querySelector('.signup__form .btn')
-    };
-  }
-
-  function setSignupStatus(kind, text) {
-    var status = signupEls().status;
-    status.className = 'signup__status' + (kind ? ' signup__status--' + kind : '');
-    status.textContent = text;
-  }
-
   function openSignup(opener) {
-    if (!signupRoot) signupRoot = buildSignup();
+    if (!signupRoot) {
+      signupRoot = buildSignup();
+      signupRoot.addEventListener('click', function (e) {
+        if (e.target && e.target.getAttribute('data-signup-close')) closeSignup();
+      });
+    }
     signupOpener = opener || null;
     signupRoot.removeAttribute('hidden');
     document.body.classList.add('signup-open');
-    setSignupStatus('', '');
-    signupEls().form.hidden = false;
-    var email = signupEls().email;
-    email.value = '';
-    email.focus();
+    withMailerLite(function () {});
   }
 
   function closeSignup() {
@@ -362,56 +332,7 @@
     }
   }
 
-  function fallbackToMailerLite() {
-    closeSignup();
-    withMailerLite(function () { window.ml('show', '6erjz7', true); });
-  }
-
-  function submitSignup(e) {
-    e.preventDefault();
-    var els = signupEls();
-    var email = (els.email.value || '').trim();
-    if (!els.email.checkValidity()) {
-      setSignupStatus('err', 'Vul een geldig e-mailadres in.');
-      els.email.focus();
-      return;
-    }
-    els.submit.disabled = true;
-    setSignupStatus('', 'Bezig…');
-
-    var body = {};
-    body['fields.email'] = email;
-    body.guid = mlGuid();
-
-    fetch(ML_SUBSCRIBE, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(body)
-    }).then(function (res) {
-      return res.json().then(function (data) {
-        return { ok: res.ok, data: data };
-      }).catch(function () {
-        return { ok: res.ok, data: {} };
-      });
-    }).then(function (result) {
-      els.submit.disabled = false;
-      if (!result.ok || result.data.success === false) {
-        throw new Error('ml');
-      }
-      els.form.hidden = true;
-      setSignupStatus('ok', 'Check je inbox. Er komt een bevestigingsmail.');
-    }).catch(function () {
-      els.submit.disabled = false;
-      fallbackToMailerLite();
-    });
-  }
-
   if (document.querySelector('.js-ml-form')) {
-    signupRoot = buildSignup();
-    signupRoot.addEventListener('click', function (e) {
-      if (e.target && e.target.getAttribute('data-signup-close')) closeSignup();
-    });
-    signupRoot.querySelector('.signup__form').addEventListener('submit', submitSignup);
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') closeSignup();
     });
