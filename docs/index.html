@@ -201,21 +201,27 @@
         <p class="agenda__year">2026</p>
 
         <div class="agenda-tabs" role="tablist" aria-label="Komende en eerdere optredens">
-          <button class="agenda-tab" id="tab-komend" role="tab"
-                  aria-selected="false" aria-controls="paneel-komend" data-paneel="komend">Komend</button>
-          <button class="agenda-tab agenda-tab--on" id="tab-geweest" role="tab"
-                  aria-selected="true" aria-controls="paneel-geweest" data-paneel="geweest">Geweest</button>
+          <button class="agenda-tab agenda-tab--on" id="tab-komend" role="tab"
+                  aria-selected="true" aria-controls="paneel-komend" data-paneel="komend">Komend</button>
+          <button class="agenda-tab" id="tab-geweest" role="tab"
+                  aria-selected="false" aria-controls="paneel-geweest" data-paneel="geweest">Geweest</button>
         </div>
 
         <!--
           NIEUWE DATUM: kopieer een <li> naar het juiste paneel.
           datum (DD-MM) | vlag + plaats | naam van het optreden
         -->
-        <div class="agenda-paneel" id="paneel-komend" role="tabpanel" aria-labelledby="tab-komend" hidden>
-          <p class="agenda-leeg">Nog niets in de boeken. <button type="button" class="agenda-leeg__knop">Boek me</button></p>
+        <div class="agenda-paneel" id="paneel-komend" role="tabpanel" aria-labelledby="tab-komend">
+          <ul class="agenda__list">
+            <li class="agenda__row">
+              <span class="agenda__date">04-09</span>
+              <span class="agenda__location"><span class="agenda__flag">🇫🇷</span> Franse Ardennen</span>
+              <span class="agenda__event">Gastset</span>
+            </li>
+          </ul>
         </div>
 
-        <div class="agenda-paneel" id="paneel-geweest" role="tabpanel" aria-labelledby="tab-geweest">
+        <div class="agenda-paneel" id="paneel-geweest" role="tabpanel" aria-labelledby="tab-geweest" hidden>
           <ul class="agenda__list">
             <li class="agenda__row">
               <span class="agenda__date">15-08</span>
