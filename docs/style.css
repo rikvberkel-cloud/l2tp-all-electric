@@ -951,6 +951,11 @@ img { max-width: 100%; display: block; }
   text-align: right;
 }
 
+.agenda__note {
+  margin-top: 1rem;
+  font-size: .9rem;
+}
+
 @media (max-width: 640px) {
   .agenda__row {
     grid-template-columns: 64px 1fr;
