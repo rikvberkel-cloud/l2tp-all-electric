@@ -913,7 +913,7 @@ img { max-width: 100%; display: block; }
 
 .agenda__row {
   display: grid;
-  grid-template-columns: 90px 1fr 1.2fr;
+  grid-template-columns: 90px 1.2fr 1fr;
   align-items: center;
   gap: 1rem;
   padding: 1.1rem 0.25rem;
@@ -937,7 +937,7 @@ img { max-width: 100%; display: block; }
   letter-spacing: .03em;
 }
 
-.agenda__location {
+.agenda__event {
   font-weight: 700;
   color: var(--text-main);
 }
@@ -946,7 +946,7 @@ img { max-width: 100%; display: block; }
   margin-right: .4rem;
 }
 
-.agenda__event {
+.agenda__location {
   color: var(--text-muted);
   text-align: right;
 }
@@ -960,13 +960,13 @@ img { max-width: 100%; display: block; }
   .agenda__row {
     grid-template-columns: 64px 1fr;
     grid-template-areas:
-      "date location"
-      "date event";
+      "date event"
+      "date location";
     gap: .15rem 1rem;
   }
   .agenda__date { grid-area: date; align-self: center; }
-  .agenda__location { grid-area: location; }
-  .agenda__event { grid-area: event; text-align: left; font-size: .9rem; }
+  .agenda__event { grid-area: event; text-align: left; }
+  .agenda__location { grid-area: location; text-align: left; font-size: .85rem; }
 }
 
 /* ============================================
